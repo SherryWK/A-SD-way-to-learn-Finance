@@ -1,6 +1,34 @@
 https://sqlzoo.net/wiki/SQL_Tutorial
-Show the countries which have a name that includes the word 'United':
+1.Show the countries which have a name that includes the word 'United':
 --
 select name from world
 where name like '%United%'
+--
+2.Exclusive OR (XOR). Show the countries that are big by area (more than 3 million) or big by population (more than 250 million) but not both. Show name, population and area.
+--
+select name,population,area from world
+where area>3000000 xor population>250000000 
+--
+3.Show the name and per-capita GDP for those countries with a GDP of at least one trillion (1000000000000; that is 12 zeros). Round this value to the nearest 1000.
+--
+select name, round( gdp /population,-3) from world
+where gdp>=1000000000000
+--
+#length()
+#LEFT(s,n) allows you to extract n characters from the start of the string s.
+eg: LEFT('Hello world', 4) -> 'Hell'   
+
+4.Equatorial Guinea and Dominican Republic have all of the vowels (a e i o u) in the name. They don't count because they have more than one word in the name.
+
+Find the country that has all the vowels and no spaces in its name.
+
+You can use the phrase name NOT LIKE '%a%' to exclude characters from your results.
+The query shown misses countries like Bahamas and Belarus because they contain at least one 'a'
+--
+select name from world
+where name like '%a%' and name like '%e%' and name like '%i%' and name  like '%o%'and name like '%u%'and name not like '% %'
+--
+???
+select name from world
+where name like '%a%' and '%e%' and '%i%' and '%o%'and '%u%'and name not like '% %'
 --
